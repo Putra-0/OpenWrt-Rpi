@@ -2,9 +2,10 @@ name: Delete Old Workflows
 
 on:
   workflow_dispatch:
-
-  schedule:
-    - cron: '0 0 * * *'
+#  schedule:
+#    - cron: 0 17 * * *
+#  watch:
+#    types: started
 
 jobs:
   Delete-Workflow-Archive:

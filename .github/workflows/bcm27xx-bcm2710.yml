@@ -22,6 +22,7 @@ env:
   DIY_SH: scripts/custom.sh
   TOOLCHAIN_TAG: toolchain
   CLASH_BINARY_PLATFORM: armv8
+  SPEEDTEST_CLI_BINARY: aarch64
   TOOLCHAIN_RELEASE_UPLOAD: true
   FIRMWARE_RELEASE_UPLOAD: true
   WEB_ROOT_PATH: /data/www/openwrt.cc
@@ -51,7 +52,7 @@ jobs:
           sudo -E apt-get -qq install squashfs-tools $(curl -fsSL git.io/depends-ubuntu-2004)
           sudo -E apt-get -qq autoremove --purge
           sudo -E apt-get -qq clean
-          sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+          sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
           docker image prune -a -f
           mkdir -p workspace
 
@@ -204,7 +205,7 @@ jobs:
           sudo -E apt-get -qq install rdate squashfs-tools $(curl -fsSL git.io/depends-ubuntu-2004)
           sudo -E apt-get -qq autoremove --purge
           sudo -E apt-get -qq clean
-          sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+          sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
           docker image prune -a -f
 
       - name: Combine Disks
@@ -298,7 +299,7 @@ jobs:
           $GITHUB_WORKSPACE/$DIY_SH
           $GITHUB_WORKSPACE/scripts/preset-clash-core.sh $CLASH_BINARY_PLATFORM
           $GITHUB_WORKSPACE/scripts/preset-terminal-tools.sh
-          $GITHUB_WORKSPACE/scripts/preset-speedtest-cli.sh
+          $GITHUB_WORKSPACE/scripts/preset-speedtest-cli.sh $SPEEDTEST_CLI_BINARY
           make defconfig
 
       - name: Download DL Package
@@ -404,7 +405,7 @@ jobs:
         run: |
           sudo -E apt-get -qq update
           sudo -E apt-get -qq install zip unzip rsync
-          sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+          sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 
       - name: Download Bin Archive
         uses: actions/download-artifact@v2
